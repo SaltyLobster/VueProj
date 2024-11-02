@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Training</title>
+    <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.js"></script>
+</head>
+<body>
+    <h1>Hello Vue!</h1>
+
+    <div id="app">
+        {{ message }} - {{ count }}
+
+        <button @click="createLine">Add task</button>
+        <button @click="count++">+</button>
+        <button @click="removeTask">-</button>
+    <ul>
+        <li v-for="todo in todos" :key="todo.id">
+            {{ todo.id }} - {{ todo.text }}
+        </li>
+    </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
