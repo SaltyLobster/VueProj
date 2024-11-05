@@ -5,11 +5,12 @@ const app = Vue.createApp( {
         const message = ("Hello Vue JS")
         const count = 1
         const todos = Vue.ref([])
+        const todoText = ""
         return {message, count, todos}
     },
     methods: {
     createLine() {
-        const todo = {id: id++, text: "Text"}
+        const todo = {id: id++, text: this.todoText}
         this.todos.push(todo)
     },
     removeTask: function (event) {
