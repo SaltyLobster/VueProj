@@ -1,26 +1,40 @@
-let id = 1
-
-const app = Vue.createApp( {
-    data() {
-        const message = ("Hello Vue JS")
-        const count = 1
-        const todos = Vue.ref([])
-        const todoText = ""
-        return {message, count, todos}
-    },
-    methods: {
-    createLine() {
-        const todo = {id: id++, text: this.todoText}
-        this.todos.push(todo)
-    },
-    removeTask: function (event) {
-        console.log(event)
-        if (this.count == 0) {
-            return
-        }
-        this.count--
-        return {count}
+const app = Vue.createApp({
+  data() {
+    return {
+      showCompletedTasks: true,  
+      newTask: '',      
+      tasks: [          
+        { title: 'Do dishes', isDone: true },
+        { title: 'Buy food', isDone: false },
+        { title: 'Clean the apartment', isDone: true }
+      ]
     }
-}
-})
-app.mount('#app')
+  },
+  computed: {
+    filteredTasks() {
+      if (this.showTasks){
+        return this.tasks
+      }
+      else {
+        return this.tasks.filter(task => this.showCompletedTasks || !task.isDone);
+      }
+    }
+  },
+  methods: {
+    toggleDone(task) {
+      task.isDone = !task.isDone;
+    },
+    addTask() {
+      if (this.newTask.trim() !== '') { 
+        this.tasks.push({ title: this.newTask, isDone: false });
+        this.newTask = '';  
+      }
+    },
+    toggleShowCompletedTasks() {
+      console.log("click")
+      this.showCompletedTasks = !this.showCompletedTasks;
+    }
+  }
+});
+
+app.mount('#app');

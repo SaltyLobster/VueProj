@@ -1,29 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Training</title>
-    <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Vue</title>
+  <script src="https://unpkg.com/vue@3.0.0"></script>
+  <style>
+    body {
+      background: #eee;
+      max-width: 960px;
+      margin: 20px auto;
+    }
+    p, h3, ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style-type: none;
+      background: #fff;
+      margin: 20px auto;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    li.isDone {
+      background: #5d8dc4;
+      color: #aaa8a8;
+    }
+    .form_field {
+      font-family: inherit;
+      width: 100%;
+      border: 0;
+      border-bottom: 2px solid #000000;
+      outline: 0;
+      font-size: 1.3rem;
+      color: #000000;
+      padding: 7px 0;
+      background: transparent;
+      transition: border-color 0.2s;
+    }
+  </style>
 </head>
 <body>
-    <h1>Vue To do</h1>
-
-    <div id="app">
-        {{ message }} - {{ count }}
-        <form>
-            <input v-model="todoText" requried placeholder="New task">
-            <button @click="createLine">Add task</button>
-            <button @click="count++">+</button>
-            <button @click="removeTask">-</button>
-        </form>
-    <ul>
-        <li v-for="todo in todos" :key="todo.id">
-            {{ todo.id }} - {{ todo.text }}
+  <h1>To Do List</h1>
+  <div id="app">
+    <input v-model="newTask" class="form_field" required placeholder="New task" @keyup.enter="addTask">
+      <ul>
+        <li v-for="task in filteredTasks" :key="task.title" :class="{ isDone: task.isDone }" @click="toggleDone(task)">
+          <h3>{{ task.title }}</h3>
+          <span v-if="task.isDone">Done</span>
+          <span v-else>To do</span>
         </li>
-    </ul>
-    </div>
-
-    <script src="app.js"></script>
+      </ul>
+    <button @click="toggleShowCompletedTasks">
+      <span v-if="showCompletedTasks">Hide completed tasks</span>
+      <span v-else>Show all tasks</span>
+    </button>
+    
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
